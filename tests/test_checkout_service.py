@@ -13,7 +13,7 @@ from payment_integration.stripe_payment_factory import StripePaymentFactory
 from payment_integration.webhook_verifier import WebhookVerifier
 
 
-""" Original tests, adapted to inject a factory """ 
+# --- Original tests, adapted to inject a factory ---------------------------
 
 
 def test_stripe_family_is_selected_together():
@@ -48,7 +48,7 @@ def test_unsupported_provider_is_rejected():
         PaymentFactoryResolver().resolve("paypal")
 
 
-""" New Tests """
+# --- New tests ---------------------------------------------------------------
 
 @pytest.mark.parametrize(
     "provider, name, signature, foreign_signatures",
@@ -122,3 +122,5 @@ def test_checkout_creates_the_family_once_and_reuses_it():
     factory.create_webhook_verifier.assert_called_once_with()
     assert factory.create_authorizer.return_value.authorize.call_count == 2
     assert factory.create_webhook_verifier.return_value.verify.call_count == 2
+
+    
